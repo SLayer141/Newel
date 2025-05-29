@@ -27,6 +27,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/form/:id"
+          element={
+            <PrivateRoute>
+              <AddEdit />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

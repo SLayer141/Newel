@@ -1,10 +1,8 @@
 .addedit-container {
   background: #fff8dc;
-  width: 100%;
-  min-height: 100vh;
-  padding: 20px;
   /* border: 2px solid #b3a369; */
   border-radius: 8px;
+  width: 900px;
   margin: 40px auto;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
   padding-bottom: 40px;
