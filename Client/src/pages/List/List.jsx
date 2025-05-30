@@ -67,12 +67,14 @@ export default function List() {
 
   // Edit item
   const handleEdit = (id) => {
-    navigate(`/form/${id}`);
+    const item = items.find(item => item._id === id);
+    navigate(`/form/${id}`, { state: { item } });
   };
 
   // View item details
   const handleView = (id) => {
-    navigate(`/view/${id}`);
+    const item = items.find(item => item._id === id);
+    navigate(`/view/${id}`, { state: { item } });
   };
 
   // Filter items based on search term

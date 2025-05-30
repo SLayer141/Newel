@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './AddEdit.css';
 
 export default function AddEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -17,9 +18,19 @@ export default function AddEdit() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch item data if editing
+  // Initialize form data from navigation state or fetch from API
   useEffect(() => {
-    if (id) {
+    if (location.state?.item) {
+      const item = location.state.item;
+      setFormData({
+        name: item.name,
+        address: item.address,
+        department: item.department,
+        dateOfJoining: new Date(item.dateOfJoining).toISOString().split('T')[0],
+        hobbies: item.hobbies,
+        gender: item.gender
+      });
+    } else if (id) {
       const fetchItem = async () => {
         try {
           const response = await axios.get(`http://localhost:5000/api/list/${id}`, {
@@ -43,7 +54,7 @@ export default function AddEdit() {
       };
       fetchItem();
     }
-  }, [id]);
+  }, [id, location.state]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -97,16 +108,11 @@ export default function AddEdit() {
         dateOfJoining: new Date(formData.dateOfJoining).toISOString()
       };
       
-      console.log('Submitting form data:', formattedData);
-      console.log('Using token:', token);
-      
       const response = await axios[method](url, formattedData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
-      console.log('Server response:', response.data);
 
       if (response.data.success) {
         navigate('/list', { replace: true });
@@ -117,8 +123,8 @@ export default function AddEdit() {
       console.error('Error saving item:', err);
       if (err.response?.status === 401) {
         setError('Your session has expired. Please log in again.');
-        // Optionally redirect to login
-        // navigate('/login');
+        localStorage.removeItem('token');
+        navigate('/login');
       } else {
         setError(err.response?.data?.error || 'Failed to save item');
       }
