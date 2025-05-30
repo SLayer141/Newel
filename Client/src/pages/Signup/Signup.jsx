@@ -16,7 +16,7 @@ export default function Signup() {
     try {
       const res = await API.post('/auth/register', form);
       localStorage.setItem('token', res.data.token);
-      navigate('/list');
+      navigate('/', { replace: true });
     } catch (err) {
       alert(err.response.data.error);
     }
@@ -41,7 +41,7 @@ export default function Signup() {
           </div>
           <button type="submit" className="login-button">Register</button>
           <div className="register-link">
-            Already have an account? <a href="/login">Login here</a>
+            Already have an account? <a href="/">Login here</a>
           </div>
         </form>
       </div>

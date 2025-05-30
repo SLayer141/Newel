@@ -77,6 +77,11 @@ export default function List() {
     navigate(`/view/${id}`, { state: { item } });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/', { replace: true });
+  };
+
   // Filter items based on search term
   const filteredItems = items.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -95,7 +100,10 @@ export default function List() {
     <div className="list-container">
       <div className="list-header">
         <span className="list-title">List Page</span>
-        <button className="add-new-btn" onClick={() => navigate('/form')}>Add New</button>
+        <div className="list-actions">
+          <button className="add-new-btn" onClick={() => navigate('/form')}>Add New</button>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        </div>
       </div>
       <div className="search-section">
         <label htmlFor="search-input" className="search-label">Search List:</label>

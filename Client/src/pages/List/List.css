@@ -110,4 +110,26 @@
 }
 .action-icon:hover {
   color: #4a90e2;
+}
+
+.list-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-btn {
+  background: linear-gradient(180deg, #fae3ea 60%, #e6b3c2 100%);
+  color: #222;
+  border: 1px solid #d17b9b;
+  border-radius: 4px;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 2px 2px 0 #b3a369;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.logout-btn:active {
+  box-shadow: 1px 1px 0 #b3a369;
 } 

@@ -52,7 +52,7 @@ export default function Login() {
           <button type="submit" className="login-button">Login</button>
         </form>
         <div className="register-link">
-          Don't have an account? <a href="/">Register here</a>
+          Don't have an account? <a href="/signup">Register here</a>
         </div>
       </div>
     </div>
